@@ -1,0 +1,3 @@
+This is one of the file for new aws S3 bucket testing purpose
+
+test 02
