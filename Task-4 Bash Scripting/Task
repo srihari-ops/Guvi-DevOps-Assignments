@@ -1,0 +1,42 @@
+
+Create a shell script to print the HTTP error code of guvi.in & print, the success/failure message based on the error code response
+Given a file, replace all occurrence of the word "give" with "learning" from 5th line till the end in only those lines that contain the word "welcome"
+
+Task-01
+
+#!/bin/bash
+
+# Get HTTP status code of guvi.in
+status_code=$(curl -o /dev/null -s -w "%{http_code}\n" https://guvi.in)
+
+echo "HTTP Status Code: $status_code"
+
+# Check for success/failure
+if [ "$status_code" -eq 200 ]; then
+    echo "✅ Success: The website guvi.in is reachable."
+else
+    echo "❌ Failure: The website guvi.in returned an error (Code: $status_code)."
+fi
+
+
+Task-02
+
+#!/bin/bash
+
+#take file name from user input
+read -p " Please enter the file name: " file
+
+# To check file existence
+if [ ! -f "$file" ]; then
+    echo "Error: File '$file' not found."
+        exit 1
+        fi
+
+        # using awk to check file from the 5th line onwards
+        awk 'NR >= 5 {
+            if ($0 ~ /welcome/) {
+                    gsub(/give/, "learning");
+                        }
+                        }1' "$file" > temp_file && mv temp_file "$file"
+
+                        echo "Word 'give' replaced with 'learning' from the 5th line in which line it contain welcome."
